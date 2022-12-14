@@ -17,6 +17,8 @@ class EntryViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSave))
     }
     
+
+    
     @objc func didTapSave() {
         if let text = titleField.text, !text.isEmpty, !noteField.text.isEmpty {
             completion?(text,noteField.text)

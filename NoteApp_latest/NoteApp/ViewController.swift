@@ -145,6 +145,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.setAllShowIndecies()
             self.table.reloadData()
         }
+        vc.updateNote = {
+                    noteTitle, note, origionalNote in self.navigationController?.popToRootViewController(animated: true)
+                    let thisNote = NoteElement(title:noteTitle,note:note,date: .now)
+                    do {
+                        try self.store.remove(thisNote)
+                    } catch {
+                        NSLog("Error deleteing note.")
+                    }
+                    self.models.remove(at: indexPath.row)
+                    self.showIndecies = self.showIndecies.filter {$0 != indexPath.row}
+                    self.models.append(thisNote)
+                    self.label.isHidden = true
+                    self.table.isHidden = false
+                    self.setAllShowIndecies()
+                    do {
+                        try self.store.store(thisNote)
+                    } catch {}
+                    self.table.reloadData()
+                }
         navigationController?.pushViewController(vc, animated: true)
     }
     
