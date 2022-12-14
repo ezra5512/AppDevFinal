@@ -20,6 +20,11 @@ class EntryViewController: UIViewController {
     @objc func didTapSave() {
         if let text = titleField.text, !text.isEmpty, !noteField.text.isEmpty {
             completion?(text,noteField.text)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Note must have title and body.", preferredStyle: .alert)
+            let close = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(close)
+            present(alert, animated: true, completion: nil)
         }
         
     }

@@ -8,6 +8,7 @@
 struct NoteElement: Codable{
     let title: String
     let note: String
+    let date: Date
 }
 
 import UIKit
@@ -18,8 +19,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet var table: UITableView!
     @IBOutlet var label: UILabel!
+    @IBOutlet var searchBar: UITextField!
     
     var models: [NoteElement] = []
+    var showIndecies: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +34,44 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } catch {
             NSLog("Error retrieving notes.")
         }
+        showIndecies = []
+        for i in 0 ... models.count {
+            showIndecies.append(i)
+        }
         title = "Notes"
+    }
+    
+    func setAllShowIndecies() {
+        showIndecies = []
+        for i in 0 ... models.count {
+            showIndecies.append(i)
+        }
+        searchBar.text = ""
+        self.table.reloadData()
+    }
+    
+    @IBAction func textFieldEditingDidChange(_ sender: Any) {
+        guard var text = searchBar.text else {
+            setAllShowIndecies()
+            return
+        }
+        if text == "" {
+            setAllShowIndecies()
+            return
+        }
+        var indecies: [Int] = []
+        text = text.lowercased()
+        var i = 0
+        for cell in models {
+            let title = cell.title.lowercased()
+            let note = cell.note.lowercased()
+            if (title.contains(text) || note.contains(text)) {
+                indecies.append(i)
+            }
+            i += 1
+        }
+        showIndecies = indecies
+        self.table.reloadData()
     }
     
     @IBAction func didTapNewNote () {
@@ -42,30 +82,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.completion = {
                     noteTitle, note in self.navigationController?.popToRootViewController(animated: true)
-                    let thisNote = NoteElement(title:noteTitle,note:note)
+                    let thisNote = NoteElement(title:noteTitle,note:note,date: .now)
                     self.models.append(thisNote)
                     self.label.isHidden = true
                     self.table.isHidden = false
-                    do {
-                        try self.store.store(thisNote)
-                    } catch {}
-                    self.table.reloadData()
-                }
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @IBAction func didTapDelete () {
-        guard let vc = storyboard?.instantiateViewController(identifier: "delete") as? EntryViewController else {
-            return
-        }
-        vc.title = "New Note"
-        vc.navigationItem.largeTitleDisplayMode = .never
-        vc.completion = {
-                    noteTitle, note in self.navigationController?.popToRootViewController(animated: true)
-                    let thisNote = NoteElement(title:noteTitle,note:note)
-                    self.models.append(thisNote)
-                    self.label.isHidden = true
-                    self.table.isHidden = false
+                    self.setAllShowIndecies()
                     do {
                         try self.store.store(thisNote)
                     } catch {}
@@ -80,9 +101,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = models[indexPath.row].title
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YY, MMM d, hh:mm"
+        let thisDate = dateFormatter.string(from: models[indexPath.row].date)
+        cell.textLabel?.text = models[indexPath.row].title + " (" + thisDate + ")"
         cell.detailTextLabel?.text = models[indexPath.row].note
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if showIndecies.contains(indexPath.row) {
+            return UITableView.automaticDimension
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -99,6 +131,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         vc.title = "Note"
         vc.noteTitle = model.title
         vc.note = model.note
+        vc.date = model.date
+        vc.deleteNote = {
+            noteTitle, note, date in self.navigationController?.popToRootViewController(animated: true)
+            let thisNote = NoteElement(title:noteTitle,note:note,date: date)
+            do {
+                try self.store.remove(thisNote)
+            } catch {
+                NSLog("Error deleteing note.")
+            }
+            self.models.remove(at: indexPath.row)
+            self.showIndecies = self.showIndecies.filter {$0 != indexPath.row}
+            self.setAllShowIndecies()
+            self.table.reloadData()
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
