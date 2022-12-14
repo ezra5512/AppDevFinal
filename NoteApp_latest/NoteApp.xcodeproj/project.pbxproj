@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B509B9862949688E00DA33B7 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509B9852949688E00DA33B7 /* Store.swift */; };
+		B509B988294968CA00DA33B7 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509B987294968CA00DA33B7 /* CoreDataStore.swift */; };
 		B57494292948004400526082 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57494282948004400526082 /* AppDelegate.swift */; };
 		B574942B2948004400526082 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574942A2948004400526082 /* SceneDelegate.swift */; };
 		B574942D2948004400526082 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574942C2948004400526082 /* ViewController.swift */; };
@@ -19,8 +21,6 @@
 		B574944F2948004600526082 /* NoteAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574944E2948004600526082 /* NoteAppUITestsLaunchTests.swift */; };
 		B574945C294800F200526082 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574945B294800F200526082 /* NoteViewController.swift */; };
 		B574945E2948011000526082 /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574945D2948011000526082 /* EntryViewController.swift */; };
-		B5E5BC7329480723003CC516 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5BC7229480723003CC516 /* Store.swift */; };
-		B5E5BC7529480730003CC516 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5BC7429480730003CC516 /* CoreDataStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B509B9852949688E00DA33B7 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		B509B987294968CA00DA33B7 /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		B57494252948004400526082 /* NoteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57494282948004400526082 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B574942A2948004400526082 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,8 +59,6 @@
 		B574944E2948004600526082 /* NoteAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B574945B294800F200526082 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		B574945D2948011000526082 /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
-		B5E5BC7229480723003CC516 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Store.swift; path = "../../../App dev projects/Notes App/Notes App/Store.swift"; sourceTree = "<group>"; };
-		B5E5BC7429480730003CC516 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStore.swift; path = "../../../App dev projects/Notes App/Notes App/CoreDataStore.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +109,6 @@
 		B57494272948004400526082 /* NoteApp */ = {
 			isa = PBXGroup;
 			children = (
-				B5E5BC7429480730003CC516 /* CoreDataStore.swift */,
-				B5E5BC7229480723003CC516 /* Store.swift */,
 				B57494282948004400526082 /* AppDelegate.swift */,
 				B574942A2948004400526082 /* SceneDelegate.swift */,
 				B574942C2948004400526082 /* ViewController.swift */,
@@ -121,6 +119,8 @@
 				B57494312948004400526082 /* NoteApp.xcdatamodeld */,
 				B574945B294800F200526082 /* NoteViewController.swift */,
 				B574945D2948011000526082 /* EntryViewController.swift */,
+				B509B9852949688E00DA33B7 /* Store.swift */,
+				B509B987294968CA00DA33B7 /* CoreDataStore.swift */,
 			);
 			path = NoteApp;
 			sourceTree = "<group>";
@@ -273,13 +273,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5E5BC7329480723003CC516 /* Store.swift in Sources */,
 				B574942D2948004400526082 /* ViewController.swift in Sources */,
 				B57494292948004400526082 /* AppDelegate.swift in Sources */,
+				B509B9862949688E00DA33B7 /* Store.swift in Sources */,
+				B509B988294968CA00DA33B7 /* CoreDataStore.swift in Sources */,
 				B574942B2948004400526082 /* SceneDelegate.swift in Sources */,
 				B574945C294800F200526082 /* NoteViewController.swift in Sources */,
 				B57494332948004400526082 /* NoteApp.xcdatamodeld in Sources */,
-				B5E5BC7529480730003CC516 /* CoreDataStore.swift in Sources */,
 				B574945E2948011000526082 /* EntryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
